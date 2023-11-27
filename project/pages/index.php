@@ -1,3 +1,9 @@
+<?php
+require("../dashboard/cnx.php");
+
+?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -19,61 +25,9 @@
 </head>
 
 <body>
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-postion">
-    <div class="container">
-      <a class="navbar-brand" href="#"><img src="images/M.png" alt="logo"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active"  href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">about</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pack.html">Pricing</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              category
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="recherch.html">Ui/Ux</a></li>
-              <li><a class="dropdown-item" href="recherch.html">content writing</a></li>
-              <li><a class="dropdown-item" href="recherch.html">video editing</a></li>
-              <li><a class="dropdown-item" href="recherch.html">Ui/Ux</a></li>
-              <li><a class="dropdown-item" href="recherch.html">content writing</a></li>
-              <li><a class="dropdown-item" href="recherch.html">video editing</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.html#testimonials-key" >Testimonials</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-        </ul>
-        <!--  -->
-        <form class="d-flex input-group w-auto">
-          <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-            aria-describedby="search-addon" />
-          <span class="input-group-text border-0" id="search-addon">
-            <img src="images/searchicon.svg" alt="">
-          </span>
-        </form>
-
-
-        <a class="btn btn-primary me-2 sign-style-color" href="regester.html" role="button">Sign up</a>
-        <a class="btn btn-primary me-2 sign-style-color" href="login.html" role="button">Sign in</a>
-      </div>
-    </div>
-  </nav>
+<?php
+     include("navbar.php")
+     ?>
   <!-- hero section -->
   <section class="hero">
     <div class="container ">
@@ -669,6 +623,9 @@
       </div>
   
     </section>
+
+    
+    
   <!-- Testimonials section -->
   <section id="testimonials-key" class="Testimonials my-4 py-4">
     <div class="container position-relative">
@@ -690,90 +647,67 @@
           </div>
         </div>
       </div>
-      <div class="row ">
-        <div id="carouselExample" class="carousel slide">
-          <div class="carousel-inner">
-            <div class="carousel-item active ">
-              <div class="col-lg-6 col-md-6 col-12 mx-auto ">
-                <div class="card category-card-style  my-4">
-                  <div class="card-body m-4 " >
-                    <div class="d-flex card-flex justify-content-between">
-                      <div class="d-flex align-items-center m-3">
-                         <img src="images/dizzy.svg" alt="" class="rounded-circle avatar-xl mb-3 mb-lg-0 ">
-                      </div>
-                      <div class="">
-                    <h4 class="mb-0">Dizzy Dros</h4>
-                    <p class="mb-0 fs-6">Artist</p>
-                    <i class="fa-solid fa-quote-left fa-xl" style="color: #ff7300;"></i>
-                    <p>I recently used their services, and I'm incredibly satisfied. The team was responsive, professional, and the final product exceeded my expectations. I highly recommend them!
-                    </p>
-                    <i class="fa-solid fa-quote-left fa-rotate-180 fa-xl" style="color: #ff7300;"></i>
-                      </div>
-                    </div>
-                  </div>
+      
+</section>
+<div class="text text-center">
+<button type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#exampleModal"> Add coment</button>
+</div>
+<!-- Modal -->
+<form  method="post">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-lg-6 col-md-6 col-12 mx-auto ">
-                <div class="card category-card-style  my-4">
-                  <div class="card-body m-4 " >
-                    <div class="d-flex  justify-content-between card-flex">
-                      <div class="d-flex align-items-center m-3">
-                         <img src="images/fatiha.svg" alt="" class="rounded-circle avatar-xl mb-3 mb-lg-0 ">
-                      </div>
-                      <div class="">
-                    <h4 class="mb-0">Fatiha Lacrim</h4>
-                    <p class="mb-0 fs-6">Ceo Haribo</p>
-                    <i class="fa-solid fa-quote-left fa-xl" style="color: #ff7300;"></i>
-                    <p>I've been a loyal customer for years. The quality of their services is outstanding, and they always go the extra mile to meet our needs. Truly remarkable!
-                    </p>
-                    <i class="fa-solid fa-quote-left fa-rotate-180 fa-xl" style="color: #ff7300;"></i>
-                      </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="f_name">coment:</label>
+                        <input type="text" name="coment" class="form-control">
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-lg-6 col-md-6 col-12 mx-auto ">
-                <div class="card category-card-style  my-4">
-                  <div class="card-body m-4 " >
-                    <div class="card-flex d-flex justify-content-between card-flex">
-                      <div class="d-flex align-items-center m-3">
-                         <img src="images/carouselimg.svg" alt="" class="rounded-circle avatar-xl mb-3 mb-lg-0 ">
-                      </div>
-                      <div class="">
-                    <h4 class="mb-0">Goch Tavn</h4>
-                    <p class="mb-0 fs-6">Founder 4011</p>
-                    <i class="fa-solid fa-quote-left fa-xl" style="color: #ff7300;"></i>
-                    <p>I had a fantastic experience with this company. Their products are top-notch, and their customer service is excellent. I highly recommend them!
-                    </p>
-                    <i class="fa-solid fa-quote-left fa-rotate-180 fa-xl" style="color: #ff7300;"></i>
-                      </div>
+                    <div class="form-group">
+                        <label for="f_id_user">id:</label>
+                        <input type="text" name="coment_id" class="form-control">
                     </div>
-                  </div>
                 </div>
-              </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" name="add_coment" value="Add">
+                </div>
+                
             </div>
-          </div>
-          <a class="carousel-control-prev " href="#carouselExampleCaptions" role="button" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-bs-slide="next">
-            <i class="fa-solid fa-angles-right fa-2xl" style="color: #ff6600;"></i>
-          </a>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <i class="fa-solid fa-angles-left fa-2xl" style="color: #ff6600;"></i>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
         </div>
-      </div>
-  </section>
+    </div>
+</form>
+<?php
+if(isset($_POST['add_coment']))
+{
+    $coment = $_POST['coment'];
+    $coment_id = $_POST['coment_id'];
+
+    if(empty($coment_id)){
+        header('location:index.php? message = fill all data!');
+    }else{
+    $query = "INSERT INTO Testimoniales (commente, id) VALUES ('$coment', '$coment_id')";
+    $result = mysqli_query($cnx, $query);
+    }
+ 
+if (!$result){
+    die("query failed ".mysqli_connect_error());
+}
+
+  
+}
+?>
+     <?php
+     include("testimonials_page.php")
+     ?>
+
+
+
+  
   <!-- trusted company -->
   <section class="trusted-company">
     <div class="container">
