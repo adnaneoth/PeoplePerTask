@@ -1,77 +1,128 @@
+  <?php
+
+include("../dashboard/cnx.php");
+
+
+  session_start();
+  session_destroy();
+  session_start();
+
+
+
+  // if(isset($_POST['login'])){ 
+  //     $email = $_POST["email"];
+  //     $pass = $_POST["pass"];
+
+  //     $q = "SELECT * FROM user WHERE email = '$email' AND password = '$pass'";
+  //     $res = mysqli_query($cnx, $q); 
+      
+  //     $row = mysqli_num_rows($res);
+  //     if ($row != 0) {
+      
+      
+  //     $row = mysqli_fetch_assoc($res);
+
+  //     if ($row['role'] == 'user') {
+  //         header("location:index.php ");
+  //         $_SESSION["user"]="user";
+  //         $_SESSION["id"]=$row["id"];
+  //     }
+  //     if ($row['role'] == 'admin') {  
+  //         $_SESSION["admin"]="admin";
+  //         $_SESSION["id"]=$row["id"];
+  //         header("location: ../dashboard/dashboard.php");
+
+  //     }
+  //   }
+  // }
+
+  if(isset($_POST['login'])){
+    login();
+  }
+  function login()
+  {
+    require("../dashboard/cnx.php");
+  
+      if (empty($_POST['email']) || empty($_POST['password'])) {
+          echo "You should enter your information to login";
+      } else {
+          $password = $_POST['password'];
+          $email = $_POST['email'];
+          $query = "SELECT * FROM user WHERE email = ? ";
+  
+          $stmt = mysqli_prepare($cnx, $query);
+  
+          if ($stmt) {
+              mysqli_stmt_bind_param($stmt, "s", $email);
+              mysqli_stmt_execute($stmt);
+  
+              $result = mysqli_stmt_get_result($stmt);
+  
+              if ($result) {
+                  $row = mysqli_fetch_assoc($result);
+  
+                  if ($row) {
+                      $password_after_fetch = $row["PASSWORD"];
+  
+                      if (password_verify($password, $password_after_fetch)) {
+                          $role = $row["role"];
+                          $id = $row["id"];
+  
+                          if ($role == "user") {
+                            $_SESSION["user"]="user";
+                            $_SESSION["id"]=$row["id"];
+                              header("location:index.php ");
+                          } else if ($role == "admin") {
+                            $_SESSION["admin"]="admin";
+                            $_SESSION["id"]=$row["id"];
+                            header("location: ../dashboard/dashboard.php");
+                          } else {
+                              echo "something is whrong";
+                          } 
+                      }
+  
+                  } else { 
+                      echo "Password is incorrect. Please try again";
+                  }
+              } else {
+                  echo "You entered a wrong email";
+              }
+          } else {
+              echo "Query execution failed";
+          }
+  
+          mysqli_stmt_close($stmt);
+      }
+  
+      mysqli_close($cnx);
+  }
+
+
+
+  ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>signup</title>
-      
-        <!-- style links -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-        <!-- animation links -->
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        <!-- link for icons -->
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-      </head>
-<body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>People per task</title>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-postion">
-      <div class="container">
-        <a class="navbar-brand" href="#"><img src="images/M.png" alt="logo"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active"  href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about.html">about</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="pack.html">Pricing</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                category
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="recherch.html">Ui/Ux</a></li>
-                <li><a class="dropdown-item" href="recherch.html">content writing</a></li>
-                <li><a class="dropdown-item" href="recherch.html">video editing</a></li>
-                <li><a class="dropdown-item" href="recherch.html">Ui/Ux</a></li>
-                <li><a class="dropdown-item" href="recherch.html">content writing</a></li>
-                <li><a class="dropdown-item" href="recherch.html">video editing</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="index.html#testimonials-key" >Testimonials</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-          </ul>
-          <!--  -->
-          <form class="d-flex input-group w-auto">
-            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-              aria-describedby="search-addon" />
-            <span class="input-group-text border-0" id="search-addon">
-              <img src="images/searchicon.svg" alt="">
-            </span>
-          </form>
-  
-  
-          <a class="btn btn-primary me-2 sign-style-color" href="regester.html" role="button">Sign up</a>
-          <a class="btn btn-primary me-2 sign-style-color" href="login.html" role="button">Sign in</a>
-        </div>
-      </div>
-    </nav>
-    <section class="vh-100 bg-image"
-    style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  <!-- style links -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="./css/about.css">
+  <!-- animation links -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- link for icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <?php
+  include("navbar.php");
+  ?>
+    <section class="vh-100 bg-image"style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -80,22 +131,22 @@
               <div class="card-body p-5">
                 <h2 class="text-uppercase text-center mb-5">login </h2>
   
-                <form id="login-form">
+                <form method = "post" action = "">
   
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form3Example3cg">Your Email</label>
-                    <input type="text" id="login-mail_inp" class="form-control form-control-lg" />
+                    <input type="text" id="login-mail_inp" name="email" class="form-control form-control-lg" />
                   </div>
   
                   <div class="form-outline mb-4 ">
                     <label class="form-label" for="form3Example4cg">Password</label>
-                    <input type="password" id="login-password_inp" class="form-control form-control-lg" />
+                    <input type="password" id="login-password_inp"name="password" class="form-control form-control-lg" />
                     <div class="text-center mrgntop">
                     <span id="login-mail_reg_err" class="text text-danger"></span>
                     </div>
                   </div>
                   
-                  <button type="submit" class="mrgntop btn btn-primary primary-btn-orange">login</button>
+                  <button type="submit" class="mrgntop btn btn-primary primary-btn-orange" name = "login">login</button>
   
                 </form>
   

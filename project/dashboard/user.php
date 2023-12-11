@@ -77,7 +77,7 @@ if (!$result){
                         <tr>
                             <th>Id_user</th>
                             <th>name</th>
-                            <th>passord</th>
+                            
                             <th>email</th>
                             <th>Update</th>
                             <th>Delete</th>
@@ -102,9 +102,7 @@ if (!$result){
                                     <td>
                                         <?php echo $row['mame']; ?>
                                     </td>
-                                    <td>
-                                        <?php echo $row['PASSWORD']; ?>
-                                    </td>
+                                    
                                     <td>
                                         <?php echo $row['email'];?>
                                     </td>

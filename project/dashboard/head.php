@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php  
+include("cnx.php");
+session_start();
+if(!isset($_SESSION["admin"])){
+    header("Location:login.php");
+}else {
+   $id_admin=$_SESSION['id'];
+   $query = " SELECT * FROM user where id = $id_admin";
+   $result = mysqli_query($cnx, $query);
+   $row = mysqli_fetch_assoc($result);
+ 
+   
+   
+}
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,7 +106,11 @@
                         </div>
                     </div>
                     <div class="inline"></div>
-                    <div class="name">lahcen Admin</div>
+                    
+                    <div class="name"> <?php echo $row['mame'];
+   ?>
+   <a class="btn btn-primary me-2 sign-style-color" href="../pages/login.php" role="button">log out</a>
+   </div>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-icon pe-md-0 position-relative" data-bs-toggle="dropdown">
